@@ -1,0 +1,14 @@
+submitHistory:
+  name: ${self:service}-submit-data-${self:custom.stageVars.envName}
+  description: This lambda submits data from database
+  handler: src/worker/submitData.handler
+  role: LambdaExecutionRole
+  memorySize: 1028
+  timeout: 30
+  events:
+    - http:
+        path: submit/history
+        method: post
+        cors: true
+  environment:
+    dataTableName: ${self:custom.stageVars.dataTableName}

@@ -1,0 +1,27 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: consultant
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: serverlessworkshop
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: serverlessworkshop
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+
+resources:
+  - ${file(serverless/cloudformation/lambdaRole.yaml)}
+  - ${file(serverless/cloudformation/gatewayresponse.yaml)}
+
+functions:
+  - ${file(serverless/function/getdata.yaml)}
+  - ${file(serverless/function/submitHistory.yaml)}
+
+custom:
+  app: serverlessworkshop
+  stageVars: ${file(serverless/stagevars/${self:provider.stage}.yaml)}
+
+package:
+  individually: true

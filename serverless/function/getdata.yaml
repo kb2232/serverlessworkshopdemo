@@ -1,0 +1,14 @@
+getData:
+  name: ${self:service}-data-${self:custom.stageVars.envName}
+  description: This lambda gets data from database
+  handler: src/worker/getData.handler
+  role: LambdaExecutionRole
+  memorySize: 1028
+  timeout: 30
+  events:
+    - http:
+        path: gethistory
+        method: get
+        cors: true
+  environment:
+    dataTableName: ${self:custom.stageVars.dataTableName}
