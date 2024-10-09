@@ -15,7 +15,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install Serverless Framework
         run: npm install -g serverless
@@ -27,5 +27,17 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
         run: serverless deploy --verbose
+# Step to Deploy API Gateway to a Stage
+      - name: Deploy API Gateway to Stage
+        run: |
+          echo "Getting API Gateway ID..."
+          API_ID=$(aws apigateway get-rest-apis --query "items[?name=='${{ secrets.API_NAME }}'].id" --output text)
+          echo "API ID is: $API_ID"
+          echo "Deploying API Gateway to stage 'prod'..."
+          aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
