@@ -32,11 +32,9 @@ jobs:
         run: serverless deploy --verbose
 # Step to Deploy API Gateway to a Stage
       - name: Deploy API Gateway to Stage
+        env:
+          DEPLOYMENT_STAGE: ${{ secrets.DEPLOYMENT_STAGE }}
+          API_ID: ${{ secrets.API_ID }}
         run: |
           echo "Deploying API Gateway"
           aws apigateway create-deployment --rest-api-id ${{ secrets.API_ID }} --stage-name ${{ secrets.DEPLOYMENT_STAGE }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
