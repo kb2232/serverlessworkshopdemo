@@ -33,11 +33,8 @@ jobs:
 # Step to Deploy API Gateway to a Stage
       - name: Deploy API Gateway to Stage
         run: |
-          echo "Getting API Gateway ID..."
-          API_ID=$(aws apigateway get-rest-apis --query "items[?name=='${{ secrets.API_NAME }}'].id" --output text)
-          echo "API ID is: $API_ID"
-          echo "Deploying API Gateway to stage 'prod'..."
-          aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
+          echo "Deploying API Gateway"
+          aws apigateway create-deployment --rest-api-id ${{ secrets.API_ID }} --stage-name ${{ secrets.DEPLOYMENT_STAGE }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
