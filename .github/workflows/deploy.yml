@@ -37,4 +37,4 @@ jobs:
           API_ID: ${{ secrets.API_ID }}
         run: |
           echo "Deploying API Gateway"
-          aws apigateway create-deployment --rest-api-id ${{ secrets.API_ID }} --stage-name ${{ secrets.DEPLOYMENT_STAGE }}
+          aws apigateway create-deployment --rest-api-id $API_ID --stage-name $DEPLOYMENT_STAGE
