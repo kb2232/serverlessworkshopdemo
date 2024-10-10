@@ -1,0 +1,24 @@
+{
+  "name": "serverlessdemov2",
+  "version": "1.0.0",
+  "description": "this is a demo",
+  "main": "serverless.yml",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kb2232/serverlessworkshopdemo.git"
+  },
+  "author": "Kunle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kb2232/serverlessworkshopdemo/issues"
+  },
+  "homepage": "https://github.com/kb2232/serverlessworkshopdemo#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.669.0",
+    "@aws-sdk/lib-dynamodb": "^3.669.0",
+    "winston": "^3.8.2"
+  }
+}
